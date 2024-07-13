@@ -11,17 +11,17 @@ class TestHandDetector(unittest.TestCase):
 
     def test_init(self):
         self.assertEqual(self.detector.mode, False)
-        self.assertEqual(self.detector.maxHands, 2)
-        self.assertEqual(self.detector.detectionConf, 0.5)
-        self.assertEqual(self.detector.trackConf, 0.5)
-        self.assertEqual(self.detector.modelComplexity, 1)
+        self.assertEqual(self.detector.max_hands, 2)
+        self.assertEqual(self.detector.detection_conf, 0.5)
+        self.assertEqual(self.detector.track_conf, 0.5)
+        self.assertEqual(self.detector.model_complexity, 1)
 
     def test_find_hands(self):
         # Create a dummy image
         dummy_image = np.zeros((480, 640, 3), dtype=np.uint8)
         
         # Assuming the function works correctly
-        result_image = self.detector.find_hands(dummy_image, draw=False)
+        result_image, hands = self.detector.find_hands(dummy_image, draw=False)
         
         self.assertIsNotNone(result_image)
         self.assertEqual(result_image.shape, dummy_image.shape)
@@ -33,7 +33,7 @@ class TestHandDetector(unittest.TestCase):
         # Assuming find_hands needs to be called to update self.results
         self.detector.find_hands(dummy_image, draw=False)
         
-        lm_list = self.detector.find_position(dummy_image, draw=False)
+        lm_list = self.detector.find_positions(dummy_image, draw=False)
         
         self.assertIsInstance(lm_list, list)
         # Further checks can be added depending on the expected output
